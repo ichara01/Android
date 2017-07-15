@@ -19,10 +19,14 @@ import static com.example.ioanna.bookinglist.Utitlities.REQUEST_URL;
 import static com.example.ioanna.bookinglist.Utitlities.REQUEST_URL_CUSTOM;
 
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Book>>{
-    /** Tag for the log messages **/
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Book>> {
+    /**
+     * Tag for the log messages
+     **/
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
-    /**Loader ID**/
+    /**
+     * Loader ID
+     **/
     private static final int BOOK_LOADER_ID = 1;
     private TextView mEmptyStateTextView;
     private CustomArrayAdapter adapter;
@@ -35,14 +39,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // This is the Adapter being used to display the list's data.
         adapter = new CustomArrayAdapter(this, new ArrayList<Book>());
         // Empty State Text
-        mEmptyStateTextView = (TextView)findViewById(R.id.empty_view);
+        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
         //Progress Bar
-        loadingIndicator = (ProgressBar)findViewById(R.id.loading_indicator);
+        loadingIndicator = (ProgressBar) findViewById(R.id.loading_indicator);
         // Show loading indicator
         loadingIndicator.showContextMenu();
         loadingIndicator.setVisibility(View.VISIBLE);
         // Check Network connectivity
-        if(HasNetworkConnecticity()){
+        if (HasNetworkConnecticity()) {
             // Get a reference to the LoaderManager, in order to interact with loaders.
             getSupportLoaderManager().initLoader(BOOK_LOADER_ID, null, this);
         }
@@ -50,19 +54,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     /**
      * On click of search button
+     *
      * @param view
      */
-    public void RetrieveBooks(View view){
+    public void RetrieveBooks(View view) {
         // Show loading indicator
         loadingIndicator.setVisibility(View.VISIBLE);
         loadingIndicator.showContextMenu();
-        TextView txtSearch = (TextView)findViewById(R.id.txt_search);
+        TextView txtSearch = (TextView) findViewById(R.id.txt_search);
         String searchParam = txtSearch.getText().toString();
         // Hide soft keyboard
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         // Check Network connectivity
-        if(HasNetworkConnecticity()) {
+        if (HasNetworkConnecticity()) {
             // Called when the action bar search text has changed.  Update
             // the search filter, and restart the loader to do a new query
             // with this filter.
@@ -70,12 +75,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             getSupportLoaderManager().restartLoader(BOOK_LOADER_ID, null, this);
         }
     }
+
     /**
      * Check Network connectivity
      * if there is a network connectivity, it return true,
      * else it returns false
      */
-    private boolean HasNetworkConnecticity(){
+    private boolean HasNetworkConnecticity() {
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         // Get details on the currently active default data network
@@ -99,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      */
     private void UpdateUI(ArrayList<Book> books) {
         //Clear adapter
-         adapter.clear();
+        adapter.clear();
         // Adapter creates list item view for each item
         adapter = new CustomArrayAdapter(this, books);
         ListView list = (ListView) this.findViewById(R.id.list_view);
@@ -119,9 +125,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //Reset URL
         REQUEST_URL_CUSTOM = REQUEST_URL;
         // Clear the adapter of previous earthquake data
-         adapter.clear();
+        adapter.clear();
         // If there is no result, do nothing.
-        if (data == null  || data.isEmpty()) {
+        if (data == null || data.isEmpty()) {
             // Set empty state text to display "No books found."
             mEmptyStateTextView.setText(R.string.no_books);
             mEmptyStateTextView.setVisibility(View.VISIBLE);

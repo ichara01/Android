@@ -3,9 +3,11 @@ package com.example.ioanna.bookinglist;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+
 import static com.example.ioanna.bookinglist.MainActivity.LOG_TAG;
 import static com.example.ioanna.bookinglist.Utitlities.REQUEST_URL_CUSTOM;
 import static com.example.ioanna.bookinglist.Utitlities.createUrl;

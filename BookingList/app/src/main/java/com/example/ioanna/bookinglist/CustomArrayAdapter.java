@@ -40,21 +40,21 @@ public class CustomArrayAdapter extends ArrayAdapter<Book> {
         // Set Title
         TextView titleTextView = (TextView) listItemView.findViewById(R.id.txt_title);
         String title = currentItem.getTitle();
-        if(title.isEmpty())
+        if (title.isEmpty())
             titleTextView.setVisibility(View.GONE);
         else
             titleTextView.setText(title);
         // Set subtitle
         TextView subTitleTextView = (TextView) listItemView.findViewById(R.id.txt_subtitle);
         String subttitle = currentItem.getSubtitle();
-        if(subttitle.isEmpty())
+        if (subttitle.isEmpty())
             subTitleTextView.setVisibility(View.GONE);
         else
-        subTitleTextView.setText(subttitle);
+            subTitleTextView.setText(subttitle);
         // Set Author
         TextView authorTextView = (TextView) listItemView.findViewById(R.id.txt_author);
         String authors = currentItem.getAuthor();
-        if(authors.isEmpty())
+        if (authors.isEmpty())
             authorTextView.setVisibility(View.GONE);
         else
             authorTextView.setText(authors);
@@ -62,7 +62,8 @@ public class CustomArrayAdapter extends ArrayAdapter<Book> {
         ImageView iconView = (ImageView) listItemView.findViewById(R.id.item_img);
         String imageURL = currentItem.getImageURL();
         if (!imageURL.isEmpty())
-            new ImageLoadTask(imageURL,iconView).execute();;
+            new ImageLoadTask(imageURL, iconView).execute();
+        ;
         // Return the whole list item layout so that it can be shown in the ListView
         return listItemView;
     }

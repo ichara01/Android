@@ -3,6 +3,7 @@ package com.example.ioanna.bookinglist;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -33,11 +34,17 @@ public class Book implements Parcelable {
         return mTitle;
     }
 
-    public String getSubtitle() { return mSubtitle; }
+    public String getSubtitle() {
+        return mSubtitle;
+    }
 
-    public String getAuthor() { return mAuthor; }
+    public String getAuthor() {
+        return mAuthor;
+    }
 
-    public String getImageURL() { return mImageURL; }
+    public String getImageURL() {
+        return mImageURL;
+    }
 
     @Override
     public int describeContents() {
@@ -46,7 +53,7 @@ public class Book implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        Log.v(TAG, "Book - writeToParcel..."+ flags);
+        Log.v(TAG, "Book - writeToParcel..." + flags);
         dest.writeString(mTitle);
         dest.writeString(mSubtitle);
         dest.writeString(mAuthor);
@@ -67,7 +74,7 @@ public class Book implements Parcelable {
 
     @Override
     public String toString() {
-        String s = "Title: " + mTitle + ", " + "Subtitle: " + mSubtitle + ", "  + ", Author:" + mAuthor + ", Image Url:" + mImageURL + "\n";
+        String s = "Title: " + mTitle + ", " + "Subtitle: " + mSubtitle + ", " + ", Author:" + mAuthor + ", Image Url:" + mImageURL + "\n";
         return s;
     }
 }

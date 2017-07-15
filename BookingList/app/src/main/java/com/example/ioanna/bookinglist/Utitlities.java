@@ -25,7 +25,9 @@ import static com.example.ioanna.bookinglist.MainActivity.LOG_TAG;
 
 public class Utitlities {
 
-    /** URL to query the Google dataset for booking information */
+    /**
+     * URL to query the Google dataset for booking information
+     */
     protected static final String REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
     public static String REQUEST_URL_CUSTOM = REQUEST_URL;
 
@@ -61,7 +63,7 @@ public class Utitlities {
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
-            }else {
+            } else {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
@@ -111,23 +113,25 @@ public class Utitlities {
         // If the JSON string is empty or null, then return early.
         try {
             JSONObject baseJsonResponse = new JSONObject(bookingsJSON);
+            if (!baseJsonResponse.has("items"))
+                return null;
             JSONArray booksArray = baseJsonResponse.getJSONArray("items");
             JSONObject bookDtls, bookImages;
             String title, subtitle, authors, imageURL;
             // If there are results in the books array
-            for(int i=0; i <= booksArray.length(); ++i) {
-                try{
+            for (int i = 0; i < booksArray.length(); ++i) {
+                try {
                     // Extract out book details
                     bookDtls = booksArray.getJSONObject(i);
-                    if(!bookDtls.has("volumeInfo"))
+                    if (!bookDtls.has("volumeInfo"))
                         continue;
                     JSONObject volumeInfo = bookDtls.getJSONObject("volumeInfo");
                     // Extract out the title
-                    title = volumeInfo.has("title") ? volumeInfo.getString("title")  : "";
+                    title = volumeInfo.has("title") ? volumeInfo.getString("title") : "";
                     // Extract out the subtitle
-                    subtitle = volumeInfo.has("subtitle") ? volumeInfo.getString("subtitle")  : "";
+                    subtitle = volumeInfo.has("subtitle") ? volumeInfo.getString("subtitle") : "";
                     // Extract out the authors
-                    authors = volumeInfo.has("authors")? (volumeInfo.getJSONArray("authors").toString()).replaceAll("\"","").replaceAll("]","").replaceAll("\\[","") : "";
+                    authors = volumeInfo.has("authors") ? (volumeInfo.getJSONArray("authors").toString()).replaceAll("\"", "").replaceAll("]", "").replaceAll("\\[", "") : "";
                     // Extract out the book image
                     bookImages = volumeInfo.has("imageLinks") ? volumeInfo.getJSONObject("imageLinks") : null;
                     imageURL = bookImages != null ? bookImages.getString("smallThumbnail") : null;
