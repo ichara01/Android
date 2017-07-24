@@ -33,8 +33,22 @@ public class MainActivity extends AppCompatActivity {
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        // Perform this raw SQL query "SELECT * FROM habitTracking"
-        Cursor cursor = db.rawQuery("SELECT * FROM " + HabitTrackingContract.HabitTrackingEntry.TABLE_NAME, null);
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                HabitTrackingContract.HabitTrackingEntry.COLUMN_HABITTRACKING_CODE,
+                HabitTrackingContract.HabitTrackingEntry.COLUMN_HABITTRACKING_USERID
+        };
+
+        Cursor cursor = db.query(
+                HabitTrackingContract.HabitTrackingEntry.TABLE_NAME,                     // The table to query
+                projection,                               // The columns to return
+                null,                                     // The columns for the WHERE clause
+                null,                                     // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                      // The sort order
+        );
         try {
             // Display the number of rows in the Cursor (which reflects the number of rows in the
             // pets table in the database).
@@ -88,8 +102,23 @@ public class MainActivity extends AppCompatActivity {
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        // Perform this raw SQL query "SELECT * FROM habit"
-        Cursor cursor = db.rawQuery("SELECT * FROM " + HabitTrackingContract.HabitTrackingEntry.TABLE_NAME, null);
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                HabitTrackingContract.HabitTrackingEntry.COLUMN_HABITTRACKING_CODE,
+                HabitTrackingContract.HabitTrackingEntry.COLUMN_HABITTRACKING_USERID
+        };
+
+        Cursor cursor = db.query(
+                HabitTrackingContract.HabitTrackingEntry.TABLE_NAME,                     // The table to query
+                projection,                               // The columns to return
+                null,                                     // The columns for the WHERE clause
+                null,                                     // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                      // The sort order
+        );
+
         try {
             if (cursor.getCount() == 0) {
                 InsertUserHabits(GetUsersHabits());
@@ -142,8 +171,22 @@ public class MainActivity extends AppCompatActivity {
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        // Perform this raw SQL query "SELECT * FROM habit"
-        Cursor cursor = db.rawQuery("SELECT * FROM " + HabitTrackingContract.HabitEntry.TABLE_NAME, null);
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                HabitTrackingContract.HabitEntry.COLUMN_HABIT_CODE
+        };
+
+        Cursor cursor = db.query(
+                HabitTrackingContract.HabitEntry.TABLE_NAME,    // The table to query
+                projection,                               // The columns to return
+                null,                                     // The columns for the WHERE clause
+                null,                                     // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                      // The sort order
+        );
+        
         try {
             if (cursor.getCount() == 0) {
                 InsertHabits(GetHabits());
